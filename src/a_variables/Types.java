@@ -1,5 +1,8 @@
 package a_variables;
 
+
+import java.util.*;
+
 public class Types {
     public static void main(String[] args) {
         // Déclaration de variable : C'est définir son type et son nom
@@ -51,5 +54,92 @@ public class Types {
         int anIntFromStingParseInt = Integer.parseInt("0");     // Utilie pour valider des saisies utilisateur
         // endregion
 
+        // region COLLECTIONS
+        /* int[] anIntArray */int anIntArray[] = {150,17,29,93,46}; // On crée un tableau avec des valeurs préféfinies (La taille d'un tableau est immutable)
+        System.out.println(anIntArray[0]); // 150 : les index commencent a 0 jusqu'a length -1
+        int[] anotherIntArray = new int[5];
+        System.out.println(anotherIntArray[0]); // 0
+        String[] aStringArray = new String[10];
+        System.out.println(aStringArray[0]); // null
+        aStringArray[0] = "String Content"; // L'affectation se fait en précisant l'index auquel doit se trouver la valeur dans le tableau
+        System.out.println(aStringArray[0]); // String Content
+        //System.out.println(aStringArray[15]); // ArrayIndexOutOfBoundsException
+
+        boolean[][] aBooleanTable = {{true,false},{false,true,true},{}};
+        System.out.println(aBooleanTable[1][2]); // true
+
+        List<String> aStringList = new ArrayList<>();
+        //System.out.println(aStringList.get(0)); // IndexOutOfBoundsException en comparation avec le tableau (même si une liste à une taille par défaut) elle n'instancie aucun objet
+        aStringList.add("first");
+        System.out.println(aStringList.get(0)); // first
+        String second = "second";
+        aStringList.add(second);
+        String third = "third";
+        aStringList.add(0, third);
+        aStringList.add(1, "fourth");
+        System.out.println(aStringList.get(0)); // third
+        System.out.println(aStringList.get(1)); // fourth
+
+        System.out.println(aStringList.indexOf(second)); // 3 IndexOf me permet retrouver la place d'un élément dans ma liste
+        System.out.println(aStringList.indexOf("fifth")); // -1 Quand l'objet (ou valeur) recherché n'existe pas dans la liste
+
+        aStringList.remove(0);
+        System.out.println(aStringList.get(0)); // fourth
+        System.out.println("aStringList.remove(\"third\") = " + aStringList.remove("third"));
+
+        List<String> aListFromArrayAsList = Arrays.asList("first",second,third,"fourth"); // en une ligne je crée une liste avec des valeurs prédéfinies
+        List<String> aListFromListOf = List.of("first",second,third,"fourth"); // Une liste crée de ces façons est immutable (on ne pourra pas en changer la taille)
+
+        Set<String> aStringSet = new HashSet<>(); // Les sets fonctionnent exactement comme des listes, au détail près qu'elles n'autorisent pas de doublons
+
+        Map<String,String> aStringMap = new HashMap<>(); // prépare une collection clé/valeur qui s'assurera (comme les sets) que les clés soient unique
+        aStringMap.put("first","First Value");
+        String secondValue = "Second Value";
+        aStringMap.put(second,secondValue);
+        aStringMap.put(third,"Third Value");
+        String fourthValue = "Fourth Value";
+        aStringMap.put("fourth", fourthValue);
+
+        System.out.println(aStringMap.get("fourth"));
+
+        System.out.println(aStringMap.get("first")); // First Value
+        System.out.println(aStringMap.get(second)); // Second Value
+
+        aStringMap.put(second, "New Second Value"); // Si la clé passée à la fonction put est déjà présente, la valeur est remplacée, dans le cas contraire, elle est ajoutée
+        System.out.println(aStringMap.get(second)); // New Second Value
+
+        aStringMap.replace(third, "New Third Value"); // la fonction replace n'ajoute pas de données si la clé est absente
+        System.out.println(aStringMap.get(third)); // New Third Value
+
+        System.out.println(aStringMap.containsKey("fifth")); // false
+        System.out.println(aStringMap.containsValue("Second Value")); // false
+
+        System.out.println("aStringMap.remove(third) = " + aStringMap.remove(third)); // New Third Value
+        System.out.println("aStringMap.remove(fifth) = " + aStringMap.remove("fifth")); // null
+
+
+        Map<String,AMutableObject> integerMap = new HashMap<>();
+        AMutableObject aMutableObject = new AMutableObject();
+        integerMap.put("first",aMutableObject);
+        System.out.println(integerMap.get("first")); // null
+        aMutableObject.setValue("New Value");
+        System.out.println(integerMap.get("first")); // New Value
+
+
+
+        // endregion
+    }
+}
+
+class AMutableObject {
+    private String value;
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
     }
 }

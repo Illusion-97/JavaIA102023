@@ -25,5 +25,10 @@ public class Jardin {
         Malinois eraChild = era.getChild(petiot,"PetiotEra");
         BergerAllemand petiotChild = (BergerAllemand) petiot.getChild(new Malinois(4,"Inconnu"), "PetitInconnu");
         // Malinois petiotChildMalouf = (Malinois) petiot.getChild(new Malinois(4,"Inconnu"), "PetitInconnu"); Valable en terme de code, mais incorrect à l'exécution
+
+        //eraChild.fight(petiot); petiot est 'considéré ici comme' un Animal et n'implémente donc pas Chien
+        /*era.fight(petiotBA); // Ici considéré comme un BergerAllemand
+        eraChild.fight(ba);*/
+        petiotChild.fight(baChild);
     }
 }

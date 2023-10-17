@@ -6,6 +6,7 @@ public abstract class Animal {
     public enum AgeRange { // est statique par défaut
         JEUNE,ADULTE,SENIOR
     }
+    // Jeune age < 3 / Senior age >= 6
 
     /*
     * Visibilité : D'où on peut accéder a un attribut ou une methode
@@ -48,5 +49,19 @@ public abstract class Animal {
 
     public int getAge() { // je rends accessible l'information 'brute' sans donner la possibilité de la modifier
         return age;
+    }
+
+    protected AgeRange getAgeRange() {
+        // Jeune age < 3 / Senior age >= 6
+        /*if(age < 3) return AgeRange.JEUNE;
+        else if (age >= 6) return AgeRange.SENIOR;
+        return AgeRange.ADULTE;  */
+
+        return age < 3 ? AgeRange.JEUNE : (age >= 6 ? AgeRange.SENIOR : AgeRange.ADULTE);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

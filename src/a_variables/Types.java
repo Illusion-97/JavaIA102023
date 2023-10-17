@@ -43,7 +43,7 @@ public class Types {
         System.out.println("Valeur après réaffectation : " + aString);  // Valeur après réaffectation : StringContent
 
         Object parent = null; // Toutes les classes héritent automatiquement de la classe Object, classe qui elle même est un type reference
-        // enregion
+        // endregion
 
         // region WRAPPER
         Integer anIntWrapper = 0;                                   // int anInt = 0;

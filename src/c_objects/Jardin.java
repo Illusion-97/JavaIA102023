@@ -30,5 +30,8 @@ public class Jardin {
         /*era.fight(petiotBA); // Ici considéré comme un BergerAllemand
         eraChild.fight(ba);*/
         petiotChild.fight(baChild);
+
+        Chien chien = eraChild;
+        chien.fight(petiotChild);
     }
 }

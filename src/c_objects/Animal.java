@@ -1,6 +1,6 @@
 package c_objects;
 
-public class Animal {
+public abstract class Animal {
     private static long count = 0; // Commun à toutes les instances de la classe (ont tous accès à la valeur en cours)
 
     public enum AgeRange { // est statique par défaut
@@ -20,7 +20,7 @@ public class Animal {
     private int age;
     protected String name;
 
-    public Animal(Animal parent, Animal otherParent, int age, String name) {
+    protected Animal(Animal parent, Animal otherParent, int age, String name) {
         //parents = new Animal[]{parent,otherParent}; // Crée directement un nouveau tableau avec les objets passés en parametre
         this(); // Appelle son propre constructeur sans parametre
         this.age = age;
@@ -31,10 +31,22 @@ public class Animal {
         parents[1] = otherParent;
     }
 
-    public Animal() {
+    private Animal() {
         // parent étant final, il doit être instancié ici
         parents = new Animal[2];
         count++;
         id = count;
+    }
+
+    //public abstract <Child extends Animal> Child getChild(Animal otherParent, String nom); // Type générique
+    public abstract Animal getChild(Animal otherParent, String nom); // Type générique
+
+    public void happyBirthday() { // je peut rendre accessible un comportement utilisant l'attribut privé et tout en gardant la responsabilité de sa modification
+        age++;
+        System.out.printf("Happy Birthday %s : %d an(s) %n",name,age); // String.format("template", ...variables)
+    }
+
+    public int getAge() { // je rends accessible l'information 'brute' sans donner la possibilité de la modifier
+        return age;
     }
 }

@@ -112,5 +112,23 @@ public class Boucles {
             {OOOOOOXXOOO}
             {XOOXOXXOXXX}
          */
+
+        for (int i = 0 ; i< aRandomBooleanTable.length ; i++){
+            System.out.print("{");
+            for (int j = 0 ; j<aRandomBooleanTable[i].length;j++){
+                System.out.print( aRandomBooleanTable[i][j]? "O" :"X");
+                ;
+            }
+            System.out.println("}");
+        }
+
+        System.out.println("aRandomBooleanTable :");
+        for (boolean[] line : aRandomBooleanTable) {
+            System.out.print("{");
+            for (boolean rowValue : line) {
+                System.out.print(rowValue ? "O" : "X");
+            }
+            System.out.println("}");
+        }
     }
 }

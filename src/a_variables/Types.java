@@ -1,6 +1,8 @@
 package a_variables;
 
 
+import c_objects.Animal;
+
 import java.util.*;
 
 public class Types {
@@ -124,9 +126,6 @@ public class Types {
         System.out.println(integerMap.get("first")); // null
         aMutableObject.setValue("New Value");
         System.out.println(integerMap.get("first")); // New Value
-
-
-
         // endregion
     }
 }

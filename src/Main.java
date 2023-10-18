@@ -24,7 +24,10 @@ public class Main {
 
     private static final String[] mainsName = mainsMap.keySet().toArray(new String[0]); // Je transforme en tableau la liste des clés de ma map
 
+    private static String[] arguments;
     public static void main(String[] args) {
+        System.out.println(Arrays.toString(args));
+        arguments = args;
         displayMenu();
     }
 
@@ -40,7 +43,7 @@ public class Main {
     private static void startMain(int index){
         if(index == -1)return; // return; dans une methode void permet d'en sortir
         try {
-            mainsMap.get(mainsName[index]).accept(null);
+            mainsMap.get(mainsName[index]).accept(arguments);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("L'index saisi ne corresponds à aucun programme");
         }  catch (RuntimeException e) { // On peut catch les exceptions lancées par les autres mains

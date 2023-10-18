@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Types {
     public static void main(String[] args) {
+        System.out.println(args[0]);
         // Déclaration de variable : C'est définir son type et son nom
         Object unObjet;
         // Instanciation : c'est affecter une valeur à une déclaration

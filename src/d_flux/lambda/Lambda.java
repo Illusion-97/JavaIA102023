@@ -14,8 +14,20 @@ public class Lambda {
         };
         soutCurrencyAmount(cs); // 143.98 $
 
+        int i = 0;
         //Same As
+        /*L'écriture lambda consiste en un ou plusieurs arguments suivis du symbole -> et du corps de la méthode
+        * les arguments se présentent sous la forme : (arg1, arg2, ...). Dans le cas ou il n'y à qu'un seul argument les parenthèses ne sont pas obligatoires
+        * le corps de la méthode (apres ->) peut se faire en une ligne et ne nécessite pas de préciser 'return'
+        * Si plusieurs lignes (ou instructions) sont nécessaires, il faudra mettre le corps entre {} et preciser explicitement le return
+        * */
         CurrencyStringifier currencyStringifier = amount -> String.format("%.2f £", amount);
+        /*CurrencyStringifier currencyStringifier = amount -> {
+            int j = i; // une variable externe à une lambda peut être utilisée
+            // i = 15; mais ne peut pas être réaffectée
+            j = 15; // je ne peux réaffecter que les variables 'locales'
+            return  String.format("%.2f £", amount);
+        };*/
         soutCurrencyAmount(currencyStringifier); // 143.98 £
 
         // Same As

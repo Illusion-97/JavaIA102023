@@ -73,7 +73,7 @@ public class TryCatch {
                 throwRuntimeException();
             } catch (RuntimeException e) {
                 System.out.println("La stacktrace se trouve toujours en fin de console");
-                e.printStackTrace();
+                e.printStackTrace(System.out);
             } finally {
                 throwCustomRuntimeException();
             }

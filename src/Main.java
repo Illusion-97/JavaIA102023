@@ -1,19 +1,60 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import a_variables.Types;
+import b_operateurs.Boucles;
+import b_operateurs.Conditions;
+import b_operateurs.MathsOperators;
+import c_objects.Jardin;
+import d_flux.Streams;
+import e_exceptions.TryCatch;
+
+import java.util.*;
+import java.util.function.Consumer;
 
 public class Main {
+
+    //"Types",args -> Types.main(args)
+    private static final Map<String, Consumer<String[]>> mainsMap = Map.of(
+            "Types",Types::main,
+            "MathsOperations", MathsOperators::main,
+            "Conditions", Conditions::main,
+            "Boucles", Boucles::main,
+            "Jardin", Jardin::main,
+            "Streams", Streams::main,
+            "Exceptions", TryCatch::main
+    );
+
+    private static final String[] mainsName = mainsMap.keySet().toArray(new String[0]); // Je transforme en tableau la liste des clés de ma map
+
     public static void main(String[] args) {
-        //Scanner scanner = new Scanner(System.in); Scanner analyse une entrée, System.in représente une saisie dans la console
-        System.out.println("Hello world!");
-        System.out.println("Veuillez saisir un suite de caractères en minuscule");
-        System.out.println("saisie = " + getSaisie());
+        displayMenu();
     }
 
-    private static String getSaisie() {
-        Scanner scanner = new Scanner(System.in);
-        String saisie;
+    private static void displayMenu() {
+        System.out.println("Saisissez le numéro du programme à lancer :");
+        for (int i = 0; i < mainsName.length; i++) {
+            System.out.printf(" %d\t->\t%s\n",i,mainsName[i]);
+        }
+        System.out.println("-1\t->\t Quitter");
+        startMain(getSaisie());
+    }
+
+    private static void startMain(int index){
+        if(index == -1)return; // return; dans une methode void permet d'en sortir
         try {
-            saisie = scanner.next("[a-z]*");
+            mainsMap.get(mainsName[index]).accept(null);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("L'index saisi ne corresponds à aucun programme");
+        }  catch (RuntimeException e) { // On peut catch les exceptions lancées par les autres mains
+            System.out.println("Exception Main");
+        } finally {
+            displayMenu();
+        }
+    }
+
+    private static int getSaisie() {
+        Scanner scanner = new Scanner(System.in);
+        int saisie;
+        try {
+            saisie = scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("La saisie est invalide, veuillez réessayer");
             saisie = getSaisie();

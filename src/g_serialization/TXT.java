@@ -6,6 +6,7 @@ public class TXT {
     private final String FILENAME = "Annuaire-bis.txt";
 
     public static void main(String[] args) {
+        // La sérialisation c'est le principe permettant la sauvegarde et l'import d'instances d'objets d'un programme dans des systèmes de stockage externe
         TXT txt = new TXT();
         Annuaire annuaire;
         try {

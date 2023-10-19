@@ -1,7 +1,8 @@
 package g_serialization;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class CSV {
@@ -14,7 +15,20 @@ public class CSV {
 
     public static void main(String[] args) {
         CSV csv = new CSV();
-        csv.exportAnnuaire(Annuaire.createAnnuaire());
+        Annuaire annuaire;
+        try {
+            annuaire = csv.importAnnuaire();
+        } catch (Exception e) {
+            System.out.println("Impossible d'importer l'annuaire.\nTentative d'export puis nouvel essai");
+            csv.exportAnnuaire(Annuaire.createAnnuaire());
+            try {
+                annuaire = csv.importAnnuaire();
+            } catch (IOException ex) {
+                System.out.println("Echec de la récupération d'information, Fin du programme");
+                return;
+            }
+        }
+        System.out.println("annuaire = " + annuaire);
 
     }
 
@@ -46,7 +60,20 @@ public class CSV {
         fw.append(Objects.toString(person.getTel()));
     }
 
-    public Annuaire importAnnuaire() {
-      return null;
+    public Annuaire importAnnuaire() throws IOException {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILENAME))) { // BufferedReader me permet de lire mon fichier, ligne par ligne
+            String line = bufferedReader.readLine(); // bufferedReader.readLine() me retourne sous forme de String, la ligne suivante ou null s'il n'y en pas plus.
+            String[] annuaireDatas = line.split(DELIMITER);
+            /*List<Person> contacts = new ArrayList<>();
+            while ((line = bufferedReader.readLine()) != null) {
+                contacts.add(readPerson(line));
+            }*/
+            return new Annuaire(annuaireDatas[0],readPerson(annuaireDatas[1]),bufferedReader.lines().map(CSV::readPerson).toList());
+        }
+    }
+
+    private static Person readPerson(String person) {
+        String[] personDatas = person.split(PERSON_DELIMITER);
+        return new Person(personDatas[0],Long.parseLong(personDatas[1]));
     }
 }

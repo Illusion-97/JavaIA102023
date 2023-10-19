@@ -53,7 +53,7 @@ public class Main {
         }
     }
 
-    private static int getSaisie() {
+    public static int getSaisie() {
         Scanner scanner = new Scanner(System.in);
         int saisie;
         try {

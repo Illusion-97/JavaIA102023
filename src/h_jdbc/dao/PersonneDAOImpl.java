@@ -3,10 +3,7 @@ package h_jdbc.dao;
 import h_jdbc.DbConnection;
 import h_jdbc.models.Personne;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class PersonneDAOImpl implements IPersonneDAO {
@@ -19,7 +16,21 @@ public class PersonneDAOImpl implements IPersonneDAO {
 
     @Override
     public boolean create(Personne personne) {
-        return false;
+        // PreparedStatement prévoit une syntaxe permettant de prévenir l'injection SQL
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "INSERT INTO Personne(version,nom,prenom,role) VALUES(?,?,?,?)"
+        )) {
+            // A l'aide de différentes fonctions pour chaque type souhaité, preparedStatement vérifie l'intégrité de la donnée avant de la passer à la requête
+            preparedStatement.setInt(1, personne.getVersion());
+            preparedStatement.setString(2, personne.getNom());
+            preparedStatement.setString(3, personne.getPrenom());
+            preparedStatement.setString(4, personne.getRole().name());
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+            return false;
+        }
     }
 
     @Override

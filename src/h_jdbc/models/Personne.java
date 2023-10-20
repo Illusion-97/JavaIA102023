@@ -2,11 +2,7 @@ package h_jdbc.models;
 
 import java.io.Serializable;
 
-//@Data
-//@NoArgsConstructor -> Constructeur vide
-//@AllArgsConstructor -> Constructeur avec tous les arguments
-//@RequiredArgsConstructor -> Constructeur avec uniquement les arguments 'final'
-public class Personne extends BaseEntity implements Serializable { // implements Serializable n'est pas nécessaire quand hérité d'un parent Serializable
+public class Personne extends BaseEntity implements Serializable {
     private String nom;
     private String prenom;
     private Role role;

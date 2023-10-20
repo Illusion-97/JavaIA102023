@@ -2,11 +2,8 @@ package h_jdbc.models;
 
 import java.io.Serializable;
 
-public abstract class BaseEntity implements Serializable { // Les classes enfants seront annotées @Entity
-    //@Id -> définir la clé primaire
-    //GeneratedValue(...) strategy = ...IDENTITY -> AUTO_INCREMENT
+public abstract class BaseEntity implements Serializable {
     private long id;
-    //@Version
     private int version;
 
     public BaseEntity() {

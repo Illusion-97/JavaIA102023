@@ -1,23 +1,22 @@
 package h_jdbc;
-
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-// Singleton : Principe permettant de n'avoir qu'une seule instance de la classe à disposition pour tout le programme
+import java.sql.*;
 public class DbConnection {
+
     private static Connection connection = null;
-    private static final String URL = "jdbc:mariadb://localhost:3307/javaia";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String bddUrl = "jdbc:mariadb://localhost:3307/javaia";
+    private static final String dbUser = "root";
+    private static final String dbPassword = "";
+
     private DbConnection() {
+
     }
 
-    public static Connection getInstance() throws ClassNotFoundException, SQLException {
+    public static Connection getInstance() throws SQLException, ClassNotFoundException {
         if(connection == null) {
-            Class.forName("org.mariadb.jdbc.Driver"); // charge le driver dans le programme
-            connection = DriverManager.getConnection(URL,USER,PASSWORD); // Utilise le driver pour obtenir une connexion à la BDD
+            // https://downloads.mariadb.org/connector-java/
+            Class.forName("org.mariadb.jdbc.Driver");
+            connection = DriverManager.getConnection(bddUrl,dbUser,dbPassword);
+            connection.setAutoCommit(false);
         }
         return connection;
     }

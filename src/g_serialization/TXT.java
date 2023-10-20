@@ -1,8 +1,10 @@
 package g_serialization;
 
+import c_objects.generic.Serializer;
+
 import java.io.*;
 
-public class TXT {
+public class TXT implements Serializer {
     private final String FILENAME = "Annuaire-bis.txt";
 
     public static void main(String[] args) {
@@ -24,6 +26,7 @@ public class TXT {
         System.out.println("annuaire = " + annuaire);
     }
 
+    @Override
     public void exportAnnuaire(Annuaire annuaire) {
         /*FileOutputStream os = new FileOutputStream(FILENAME); // Outil d'écriture dans un fichier
         ObjectOutputStream oos = new ObjectOutputStream(os); // Meme outil, mais adapté à la sérialization d'objets
@@ -39,6 +42,7 @@ public class TXT {
         }// La syntaxe d'un try with ressources permet d'automatiquement fermer les flux ouverts durant la déclaration
     }
 
+    @Override
     public Annuaire importAnnuaire() throws IOException, ClassNotFoundException {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILENAME))) {
             return (Annuaire) ois.readObject();
